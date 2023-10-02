@@ -1,0 +1,1 @@
+{"name":"Local: mergeSort","url":"c:\\Users\\hp\\OneDrive\\Desktop\\code\\mergeSort.cpp","tests":[{"id":1693310550700,"input":"4\n4 3 2 1","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\hp\\OneDrive\\Desktop\\code\\mergeSort.cpp","group":"local","local":true}

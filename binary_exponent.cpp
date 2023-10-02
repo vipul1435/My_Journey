@@ -12,6 +12,8 @@ using osetg = tree<T, null_type, greater<T>, rb_tree_tag, tree_order_statistics_
 typedef long long ll;
 typedef unsigned long long ul;
 #define setbits(x) __builtin_popcountll(x)
+#define flag(fl) fl ? cout << "YES\n" : cout << "NO\n"
+#define endl "\n"
 #define lp(i, n) for (ll i = 0; i < n; i++)
 #define ff first
 #define ss second
@@ -21,6 +23,36 @@ typedef unsigned long long ul;
 #define sps(x, y) fixed << setprecision(y) << x
 #define all(v) v.begin(), v.end()
 const ll M = 1e9 + 7;
+int  findSubsequence(int* arr, int n)
+{
+    int k=n;
+    map<int, int> M;
+    for (int i = 0; i < n; ++i)
+        ++M[arr[i]];
+    int* numCount = new int[k + 1]; 
+    for (int i = 0; i <= k; ++i)
+        numCount[i] = 0;
+    for (auto p : M) {
+        if (p.first <= k) {
+            for (int i = 1;; ++i) {
+                if (p.first * i > k)
+                    break;
+                numCount[p.first * i] += p.second;
+            }
+        }
+        else
+            break;
+    }
+    int lcm = 0, length = 0;
+    for (int i = 1; i <= k; ++i) {
+        if (numCount[i] > length) {
+            length = numCount[i];
+            lcm = i;
+        }
+    }
+    return length;
+}
+ 
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -29,17 +61,11 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n,m;
-        cin>>n>>m;
-        vector<int> a(m),b(m);
-        lp(i,m) cin>>a[i];
-        int on=0,tw=0;
-        lp(i,m){
-            cin>>b[i];
-            if(b[i]==1) on++;
-            else tw++;
-        }
-        cout<<max(on,tw)<<endl;
+        ll n;
+        cin>>n;
+        int arr[n];
+        lp(i,n) cin>>arr[i];
+        cout<<findSubsequence(arr,n)<<endl;
     }
     return 0;
 }

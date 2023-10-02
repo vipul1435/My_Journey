@@ -1,0 +1,1 @@
+{"name":"Local: second","url":"c:\\Users\\hp\\OneDrive\\Desktop\\code\\second.c","tests":[{"id":1676803396898,"input":"123 145 99 169 245","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\hp\\OneDrive\\Desktop\\code\\second.c","group":"local","local":true}

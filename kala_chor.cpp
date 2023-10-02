@@ -24,55 +24,27 @@ typedef unsigned long long ul;
 #define sps(x, y) fixed << setprecision(y) << x
 #define all(v) v.begin(), v.end()
 const ll M = 1e9 + 7;
-ll solve(ll n, map<ll, ll> mp)
-{
-    if (!mp.count(0))
-        return 0;
-    vector<ll> vec;
-    for (auto it : mp)
-    {
-        vec.push_back(it.ff);
-    }
-    sort(all(vec));
-    ll ma = vec.size();
-    lp(i, vec.size())
-    {
-        if (i != vec[i])
-        {
-            ma = i;
-            break;
-        }
-    }
-    ll ans = ma*(mp[0]-1);
-    for (auto it : mp)
-    {
-        if (it.ff < ma)
-        {
-            ll cmp =it.ff + ma * (it.ss - 1) + it.ff * (mp[0]-1);
-            ans = min(ans, cmp);
-        }
-    }
-    // ma = ma*(mp[0]-1);
-    return ans;
-}
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int t;
+    #ifndef ONLINE_JUDGE
+        freopen("output.txt","r",stdin);
+        freopen("output1.txt","w",stdout);
+
+    #endif
+    ll t;
     cin >> t;
+    ll dd=1;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        map<ll,ll> mp;
-        lp(i, n)
-        {
-            ll k;
-            cin >> k;
-            mp[k]++;
-        }
-        cout << solve(n, mp) << endl;
+        ul a,b,c;
+        cin>>a>>b>>c;
+        ul bun = a+2*1LL*b;
+        ul patty = 2*1LL*a + 2*1LL*b;
+        cout << "Case #" << dd << ": ";
+        flag(bun>=c and patty>c);
+        dd++;
     }
     return 0;
 }

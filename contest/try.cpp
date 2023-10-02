@@ -12,10 +12,7 @@ using osetg = tree<T, null_type, greater<T>, rb_tree_tag, tree_order_statistics_
 typedef long long ll;
 typedef unsigned long long ul;
 #define setbits(x) __builtin_popcountll(x)
-#define flag(fl) fl ? cout << "YES\n" : cout << "NO\n"
-#define endl "\n"
 #define lp(i, n) for (ll i = 0; i < n; i++)
-#define lpp(i, n) for (ll i = 1; i < n; i++)
 #define ff first
 #define ss second
 #define pi 3.14159265358979323846
@@ -24,36 +21,13 @@ typedef unsigned long long ul;
 #define sps(x, y) fixed << setprecision(y) << x
 #define all(v) v.begin(), v.end()
 const ll M = 1e9 + 7;
-ll solve(ll n, map<ll, ll> mp)
-{
-    if (!mp.count(0))
-        return 0;
-    vector<ll> vec;
-    for (auto it : mp)
-    {
-        vec.push_back(it.ff);
-    }
-    sort(all(vec));
-    ll ma = vec.size();
-    lp(i, vec.size())
-    {
-        if (i != vec[i])
-        {
-            ma = i;
-            break;
-        }
-    }
-    ll ans = ma*(mp[0]-1);
-    for (auto it : mp)
-    {
-        if (it.ff < ma)
-        {
-            ll cmp =it.ff + ma * (it.ss - 1) + it.ff * (mp[0]-1);
-            ans = min(ans, cmp);
-        }
-    }
-    // ma = ma*(mp[0]-1);
-    return ans;
+bool solve(ll ind,ll n,ul tar,vector<ul> vec,ul sum,ll sz){
+    if(sum==tar and n==0) return true;
+    if(sum>tar) return false;
+    if(ind>=sz or n<0) return false;
+    bool tak = solve(ind+1,n-1,tar,vec,sum+vec[ind],sz);
+    bool not_take = solve(ind+1,n,tar,vec,sum,sz);
+    return (tak or not_take);
 }
 int main()
 {
@@ -63,16 +37,26 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        map<ll,ll> mp;
-        lp(i, n)
-        {
-            ll k;
-            cin >> k;
-            mp[k]++;
+        ll n,x,y;
+        cin>>n>>x>>y;
+        vector<ul> vec;
+        vec.push_back(1);
+        vector<ul> fib(48);
+        fib[0]=1;
+        fib[1]=1;
+        for(int i=2;i<=47;i++){
+            fib[i]=fib[i-1]+fib[i-2];
         }
-        cout << solve(n, mp) << endl;
+        ul tar = fib[n]*fib[n+1];
+        int k=2;
+        // cout<<tar<<endl;
+        while(fib[k]*fib[k]<=tar){
+            vec.push_back(fib[k]*fib[k]);
+            vec.push_back(fib[k]*fib[k]);
+            k++;
+        }
+        bool ans = solve(0,n,tar-1,vec,0,vec.size());
+        ans?cout<<"YES\n":cout<<"NO\n";
     }
     return 0;
 }
